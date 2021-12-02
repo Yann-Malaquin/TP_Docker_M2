@@ -1,0 +1,65 @@
+version: "3.1"
+
+services:
+
+  angular:
+    build:
+      context: ./frontAngular
+      dockerfile: Dockerfile
+    volumes: # Volume binding
+      - './frontAngular:/usr/src/app'
+    ports:
+      - "4200:4200" # Port mapping
+    command: >
+      bash -c "npm install && ng serve --host 0.0.0.0 --port 4200"
+    networks:
+      - back
+
+  spring:
+    build:
+      context: ./annuaire
+      dockerfile: Dockerfile
+    ports:
+      - 8082:8082
+      - 8001:8001
+    restart: "no"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3307/annuairedb?useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+    networks:
+      - back
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: "no"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=annuairedb
+      - MYSQL_TCP_PORT=3307
+    ports:
+      - 3337:3307
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - back
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin2
+    environment:
+      - PMA_ARBITRARY=1
+    restart: "no"
+    ports:
+      - 8084:81
+    networks:
+      - back
+
+networks:
+  back:
+
+volumes:
+  db-data:
