@@ -3,6 +3,7 @@ package fr.yannm.annuaire.service;
 import fr.yannm.annuaire.model.Person;
 import org.springframework.http.ResponseEntity;
 
+import javax.xml.ws.Response;
 import java.util.Map;
 
 /**
@@ -28,4 +29,6 @@ public interface AnnuaireItf {
     public void deletePerson(int id);
 
     public Person updatePerson(String id, String name, String surname, String phone, String city);
+
+    public ResponseEntity<?> getPersonsRest();
 }
