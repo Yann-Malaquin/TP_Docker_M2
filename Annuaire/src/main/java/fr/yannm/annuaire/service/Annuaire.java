@@ -3,6 +3,7 @@ package fr.yannm.annuaire.service;
 import fr.yannm.annuaire.model.Person;
 import fr.yannm.annuaire.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -108,7 +109,7 @@ public class Annuaire implements AnnuaireItf {
     }
 
     @Override
-    public Person updatePerson(String id,String name, String surname, String phone, String city) {
+    public Person updatePerson(String id, String name, String surname, String phone, String city) {
         System.out.println("name = " + name);
         System.out.println("id = " + id);
         Optional<Person> p = personRepository.findById(Integer.parseInt(id));
@@ -126,5 +127,17 @@ public class Annuaire implements AnnuaireItf {
 
 
         return toUpdate;
+    }
+
+    @Override
+    public ResponseEntity<?> getPersonsRest() {
+
+        if (!personRepository.findAll().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(personRepository.findAll());
+        }
+
+        System.out.println(personRepository.findAll());
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Liste vide");
     }
 }
