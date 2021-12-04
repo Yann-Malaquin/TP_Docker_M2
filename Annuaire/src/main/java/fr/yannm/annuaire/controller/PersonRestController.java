@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @project Annuaire
  * @copyright Yann
  **/
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class PersonRestController {
 
