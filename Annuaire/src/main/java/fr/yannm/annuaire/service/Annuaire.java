@@ -1,11 +1,14 @@
 package fr.yannm.annuaire.service;
 
+import fr.yannm.annuaire.model.CreatePerson;
 import fr.yannm.annuaire.model.Person;
 import fr.yannm.annuaire.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
 
@@ -139,5 +142,16 @@ public class Annuaire implements AnnuaireItf {
         System.out.println(personRepository.findAll());
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Liste vide");
+    }
+
+    @Override
+    public ResponseEntity<?> createPersonRest(CreatePerson createPerson) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(personRepository.save(new Person(
+                        createPerson.getName(),
+                        createPerson.getSurname(),
+                        createPerson.getPhone(),
+                        createPerson.getCity()
+                )
+        ));
     }
 }
