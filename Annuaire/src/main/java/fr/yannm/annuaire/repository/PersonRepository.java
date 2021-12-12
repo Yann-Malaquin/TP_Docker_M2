@@ -28,4 +28,7 @@ public interface PersonRepository extends CrudRepository<Person, Integer> {
 
     // Récupère une personne de nom name si elle existe
     List<Person> findAllByName(String name);
+
+    // Récupère une personne en fonction de son numéro de téléphone
+    Optional<Person> findByPhone(String phone);
 }

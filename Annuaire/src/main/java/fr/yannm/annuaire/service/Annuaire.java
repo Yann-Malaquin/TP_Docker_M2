@@ -1,14 +1,14 @@
 package fr.yannm.annuaire.service;
 
+
 import fr.yannm.annuaire.model.CreatePerson;
 import fr.yannm.annuaire.model.Person;
+import fr.yannm.annuaire.model.UpdatePerson;
 import fr.yannm.annuaire.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
 
@@ -139,13 +139,18 @@ public class Annuaire implements AnnuaireItf {
             return ResponseEntity.status(HttpStatus.OK).body(personRepository.findAll());
         }
 
-        System.out.println(personRepository.findAll());
-
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Liste vide");
     }
 
     @Override
     public ResponseEntity<?> createPersonRest(CreatePerson createPerson) {
+
+        Optional<Person> person = personRepository.findByPhone(createPerson.getPhone());
+
+        if (person.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Personne déjà existante");
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(personRepository.save(new Person(
                         createPerson.getName(),
                         createPerson.getSurname(),
@@ -153,5 +158,61 @@ public class Annuaire implements AnnuaireItf {
                         createPerson.getCity()
                 )
         ));
+    }
+
+    @Override
+    public ResponseEntity<?> deletePersonRest(int id) {
+        Optional<Person> p = personRepository.findById(id);
+
+        if (p.isPresent()) {
+            personRepository.delete(p.get());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+    }
+
+    @Override
+    public ResponseEntity<?> findByIdRest(int id) {
+
+        Optional<Person> p = personRepository.findById(id);
+
+        if (p.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(p.get());
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+    }
+
+    @Override
+    public ResponseEntity<?> updatePersonRest(int id, UpdatePerson updatePerson) {
+        Optional<Person> person = personRepository.findById(id);
+
+        if (person.isPresent()){
+            Person p = person.get();
+            p.setName(updatePerson.getName());
+            p.setSurname(updatePerson.getSurname());
+            p.setPhone(updatePerson.getPhone());
+            p.setCity(updatePerson.getCity());
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(personRepository.save(p));
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @Override
+    public ResponseEntity<?> findPersonRest(String name) {
+
+        List<Person> personList = personRepository.findAllByName(name);
+
+        if (personList.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(personList);
+
     }
 }
