@@ -2,6 +2,7 @@ package fr.yannm.annuaire.service;
 
 import fr.yannm.annuaire.model.CreatePerson;
 import fr.yannm.annuaire.model.Person;
+import fr.yannm.annuaire.model.UpdatePerson;
 import org.springframework.http.ResponseEntity;
 
 import javax.xml.ws.Response;
@@ -34,4 +35,13 @@ public interface AnnuaireItf {
     public ResponseEntity<?> getPersonsRest();
 
     public ResponseEntity<?> createPersonRest(CreatePerson createPerson);
+
+    public ResponseEntity<?> deletePersonRest(int id);
+
+    public ResponseEntity<?> findByIdRest(int id);
+
+    public ResponseEntity<?> updatePersonRest(int id, UpdatePerson updatePerson);
+
+    public ResponseEntity<?> findPersonRest(String name);
+
 }

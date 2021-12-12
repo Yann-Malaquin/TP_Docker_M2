@@ -1,6 +1,7 @@
 package fr.yannm.annuaire.controller;
 
 import fr.yannm.annuaire.model.CreatePerson;
+import fr.yannm.annuaire.model.UpdatePerson;
 import fr.yannm.annuaire.service.Annuaire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,23 @@ public class PersonRestController {
         return annuaire.createPersonRest(createPerson);
     }
 
+    @DeleteMapping("deletePersonRest/{id}")
+    public ResponseEntity<?> deletePerson(@PathVariable("id") int id) {
+        return annuaire.deletePersonRest(id);
+    }
 
+    @GetMapping("annuaire/person/{id}")
+    public ResponseEntity<?> getPerson(@PathVariable("id") int id) {
+        return annuaire.findByIdRest(id);
+    }
+
+    @PutMapping("annuaire/updatePerson/{id}")
+    public ResponseEntity<?> updatePerson(@PathVariable("id") int id, @Validated @RequestBody UpdatePerson updatePerson) {
+        return annuaire.updatePersonRest(id, updatePerson);
+    }
+
+    @GetMapping("annuaire/{name}")
+    public ResponseEntity<?> getPersons(@PathVariable("name") String name) {
+        return annuaire.findPersonRest(name);
+    }
 }
