@@ -16,8 +16,22 @@ export class AnnuaireService {
     return this.http.get<Person[]>(`${environment.url}/annuaireRest`);
   }
 
-  public createPerson(person : Person): Observable<any>{
+  public createPerson(person: Person): Observable<any> {
     return this.http.post(`${environment.url}/createPersonRest`, person);
   }
+
+  public deletePerson(id?: number): Observable<any> {
+    return this.http.delete(`${environment.url}/deletePersonRest/${id}`);
+  }
+
+  public getPerson(id?: number): Observable<any> {
+    return this.http.get(`${environment.url}/annuaire/person/${id}`);
+  }
+
+  public updatePerson( person: Person, id?: number): Observable<any>{
+    return this.http.put(`${environment.url}/annuaire/updatePerson/${id}`, person);
+  }
+
+
 
 }

@@ -1,19 +1,27 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {AnnuaireComponent} from "./annuaire/annuaire.component";
-import {CreatePersonComponent} from "./create-person/create-person.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {HomeComponent} from "./components/home/home.component";
+import {AddPersonComponent} from "./components/add-person/add-person.component";
 
 const routes: Routes = [
   {
-    path: '', component: AnnuaireComponent
+    // URL redirigeant vers la page d'accueil
+    path: '', component: HomeComponent
   },
   {
-    path: 'ajout', component: CreatePersonComponent
+    // URL redirigeant vers la création d'une personne
+    path: 'creationPersonne', component: AddPersonComponent
   }
+  ,
+  {
+    // Redirection vers la page d'accueil si l'URL saisie est inexistante
+    path: '**', redirectTo: ''
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
