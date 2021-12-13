@@ -12,6 +12,7 @@ export class AnnuaireComponent implements OnInit {
   public annuaire: Person[] = [];
 
   constructor(private annuaireService: AnnuaireService) {
+
   }
 
   ngOnInit(): void {
