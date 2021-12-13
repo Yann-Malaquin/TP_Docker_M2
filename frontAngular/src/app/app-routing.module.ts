@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     // URL redirigeant vers la création d'une personne
     path: 'creationPersonne', component: AddPersonComponent
+  },
+  // URL redirigeant vers la modification d'une personne avec l'id correspondant
+  {
+    path: 'edit/:id', component: AddPersonComponent
   }
   ,
   {
