@@ -32,6 +32,10 @@ export class AnnuaireService {
     return this.http.put(`${environment.url}/annuaire/updatePerson/${id}`, person);
   }
 
+  public getPersonsByName(name?: string): Observable<Person[]>{
+    return this.http.get<Person[]>(`${environment.url}/annuaire/search/${name}`);
+  }
+
 
 
 }

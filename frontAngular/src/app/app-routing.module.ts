@@ -8,6 +8,10 @@ const routes: Routes = [
     // URL redirigeant vers la page d'accueil
     path: '', component: HomeComponent
   },
+  // URL redirigeant vers la page d'accueil
+  {
+    path: 'recherche/:name', component: HomeComponent
+  },
   {
     // URL redirigeant vers la création d'une personne
     path: 'creationPersonne', component: AddPersonComponent

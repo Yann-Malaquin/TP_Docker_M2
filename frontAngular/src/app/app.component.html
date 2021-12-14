@@ -36,19 +36,23 @@
         >PagesJaunes
       </a>
       <!-- Navbar Search-->
-      <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+      <form
+        class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"
+        novalidate
+        [formGroup]="searchForm"
+        (ngSubmit)="onSubmit(searchForm.value)"
+      >
         <div class="input-group">
           <input
             class="form-control"
             type="text"
             placeholder="Recherche"
-            aria-label="Recherche"
-            aria-describedby="btnNavbarSearch"
+            formControlName="inputSearch"
           />
           <button
             class="btn btn-warning"
             id="btnNavbarSearch"
-            type="button"
+            type="submit"
           >
             <i class="fas fa-search"></i>
           </button>
