@@ -1,7 +1,7 @@
 package fr.yannm.annuaire.controller;
 
-import fr.yannm.annuaire.model.CreatePerson;
-import fr.yannm.annuaire.model.UpdatePerson;
+import fr.yannm.annuaire.model.person.CreatePerson;
+import fr.yannm.annuaire.model.person.UpdatePerson;
 import fr.yannm.annuaire.service.Annuaire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +48,7 @@ public class PersonRestController {
         return annuaire.updatePersonRest(id, updatePerson);
     }
 
-    @GetMapping("annuaire/{name}")
+    @GetMapping("annuaire/search/{name}")
     public ResponseEntity<?> getPersons(@PathVariable("name") String name) {
         return annuaire.findPersonRest(name);
     }

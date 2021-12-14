@@ -1,6 +1,6 @@
 package fr.yannm.annuaire.repository;
 
-import fr.yannm.annuaire.model.Person;
+import fr.yannm.annuaire.model.person.Person;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

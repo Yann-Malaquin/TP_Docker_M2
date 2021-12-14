@@ -1,4 +1,4 @@
-package fr.yannm.annuaire.model;
+package fr.yannm.annuaire.model.person;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
