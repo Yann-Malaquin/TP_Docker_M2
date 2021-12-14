@@ -1,11 +1,10 @@
 package fr.yannm.annuaire.service;
 
-import fr.yannm.annuaire.model.CreatePerson;
-import fr.yannm.annuaire.model.Person;
-import fr.yannm.annuaire.model.UpdatePerson;
+import fr.yannm.annuaire.model.person.CreatePerson;
+import fr.yannm.annuaire.model.person.Person;
+import fr.yannm.annuaire.model.person.UpdatePerson;
 import org.springframework.http.ResponseEntity;
 
-import javax.xml.ws.Response;
 import java.util.Map;
 
 /**

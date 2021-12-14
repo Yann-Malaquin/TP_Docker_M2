@@ -1,9 +1,9 @@
 package fr.yannm.annuaire.service;
 
 
-import fr.yannm.annuaire.model.CreatePerson;
-import fr.yannm.annuaire.model.Person;
-import fr.yannm.annuaire.model.UpdatePerson;
+import fr.yannm.annuaire.model.person.CreatePerson;
+import fr.yannm.annuaire.model.person.Person;
+import fr.yannm.annuaire.model.person.UpdatePerson;
 import fr.yannm.annuaire.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

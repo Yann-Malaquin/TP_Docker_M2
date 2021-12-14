@@ -1,6 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Person} from "../../models/person.model";
 import {AnnuaireService} from "../../services/annuaire.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-annuaire',
@@ -10,26 +11,52 @@ import {AnnuaireService} from "../../services/annuaire.service";
 export class AnnuaireComponent implements OnInit {
 
   public annuaire: Person[] = [];
+  isSearch: boolean;
+  isDisplayAll: boolean;
+  name: string | null;
 
-  @Output() emitter = new EventEmitter<any>();
+  constructor(private annuaireService: AnnuaireService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
 
-  constructor(private annuaireService: AnnuaireService) {
+    this.name = null;
 
+    if (this.router.url.includes('recherche')) {
+      this.isDisplayAll = false;
+      this.isSearch = true;
+    } else {
+      this.isSearch = false;
+      this.isDisplayAll = true;
+    }
   }
 
   ngOnInit(): void {
-    this.getPersons();
+
+    this.activatedRoute.params.subscribe(routeParams => {
+      this.name = routeParams['name'];
+      this.getPersons();
+    });
   }
 
   getPersons() {
-    this.annuaireService.getPersons()
-      .subscribe(annuaireResponse => {
-          this.annuaire = annuaireResponse;
-        }
-      );
+    if (this.isDisplayAll) {
+      this.annuaireService.getPersons()
+        .subscribe(annuaireResponse => {
+            this.annuaire = annuaireResponse;
+          }
+        );
+    } else if (this.isSearch) {
+      if (this.name != null) {
+        this.annuaireService.getPersonsByName(this.name)
+          .subscribe(annuaireResponse => {
+              this.annuaire = annuaireResponse;
+            }
+          );
+      }
+    }
   }
 
-  onDelete(id?: number){
+  onDelete(id?: number) {
     this.annuaireService.deletePerson(id).subscribe(personResponse => {
       this.getPersons();
     });

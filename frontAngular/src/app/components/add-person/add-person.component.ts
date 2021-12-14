@@ -60,6 +60,7 @@ export class AddPersonComponent implements OnInit {
       city: personForm.inputCity,
     };
 
+    console.log(personForm)
     if (this.isAddingPerson) {
       this.annuaireService.createPerson(person)
         .subscribe(personResponse => {
