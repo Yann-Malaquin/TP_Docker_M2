@@ -1,6 +1,5 @@
 package fr.yannm.annuaire.controller;
 
-import fr.yannm.annuaire.model.Person;
 import fr.yannm.annuaire.repository.PersonRepository;
 import fr.yannm.annuaire.service.Annuaire;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
 
 /**
  * Controller pour les personnes
