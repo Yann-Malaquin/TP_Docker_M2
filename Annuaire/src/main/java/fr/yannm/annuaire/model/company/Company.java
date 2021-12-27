@@ -2,10 +2,13 @@ package fr.yannm.annuaire.model.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fr.yannm.annuaire.model.person.Person;
-import lombok.AllArgsConstructor;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,19 +26,33 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@ApiModel(value = "Company", description = "Entité qui caractérise une entreprise.")
+
 public class Company {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty("L'id de l'entreprise.")
     private int id;
+
+    @ApiModelProperty("Le nom de l'entreprise.")
     private String name;
+
+    @ApiModelProperty("Le numéro de téléphone de l'entreprise.")
     private String phone;
+
+    @ApiModelProperty("L'adresse de l'entreprise.")
     private String address;
+
+    @ApiModelProperty("La ville de l'entreprise.")
     private String city;
+
+    @ApiModelProperty("Le pays de l'entreprise.")
     private String country;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({"company"})
+    @ApiModelProperty("La liste des personnes de l'entreprise.")
     private List<Person> personRestList;
 
 

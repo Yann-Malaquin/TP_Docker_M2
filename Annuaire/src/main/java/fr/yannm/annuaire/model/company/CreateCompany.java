@@ -1,9 +1,11 @@
 package fr.yannm.annuaire.model.company;
 
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author Yann
@@ -17,6 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Api(hidden = true)
 public class CreateCompany {
     private String name;
     private String phone;

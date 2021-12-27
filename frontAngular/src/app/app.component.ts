@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
     this.initForm();
   }
 
+
   ngOnInit() {
   }
 
@@ -33,5 +34,6 @@ export class AppComponent implements OnInit {
   onSubmit(search: any): void {
     this.router.navigate(['recherche/', search.inputSearch]);
   }
+
 
 }
