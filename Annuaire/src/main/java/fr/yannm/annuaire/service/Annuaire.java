@@ -1,15 +1,20 @@
 package fr.yannm.annuaire.service;
 
 
+import fr.yannm.annuaire.model.company.Company;
+import fr.yannm.annuaire.model.company.CreateCompany;
+import fr.yannm.annuaire.model.company.UpdateCompany;
 import fr.yannm.annuaire.model.person.CreatePerson;
 import fr.yannm.annuaire.model.person.Person;
 import fr.yannm.annuaire.model.person.UpdatePerson;
+import fr.yannm.annuaire.repository.CompanyRepository;
 import fr.yannm.annuaire.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 
 /**
@@ -25,6 +30,9 @@ public class Annuaire implements AnnuaireItf {
 
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    CompanyRepository companyRepository;
 
     @Override
     public ResponseEntity<?> createPersons() {
@@ -146,16 +154,23 @@ public class Annuaire implements AnnuaireItf {
     public ResponseEntity<?> createPersonRest(CreatePerson createPerson) {
 
         Optional<Person> person = personRepository.findByPhone(createPerson.getPhone());
+        Optional<Company> companyOptional = companyRepository.findById(createPerson.getCompany_id());
+        Company company = null;
 
         if (person.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Personne déjà existante");
+        }
+
+        if (companyOptional.isPresent()) {
+            company = companyOptional.get();
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(personRepository.save(new Person(
                         createPerson.getName(),
                         createPerson.getSurname(),
                         createPerson.getPhone(),
-                        createPerson.getCity()
+                        createPerson.getCity(),
+                        company
                 )
         ));
     }
@@ -190,7 +205,7 @@ public class Annuaire implements AnnuaireItf {
     public ResponseEntity<?> updatePersonRest(int id, UpdatePerson updatePerson) {
         Optional<Person> person = personRepository.findById(id);
 
-        if (person.isPresent()){
+        if (person.isPresent()) {
             Person p = person.get();
             p.setName(updatePerson.getName());
             p.setSurname(updatePerson.getSurname());
@@ -208,11 +223,83 @@ public class Annuaire implements AnnuaireItf {
 
         List<Person> personList = personRepository.findAllByName(name);
 
-        if (personList.isEmpty()){
+        if (personList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(personList);
 
+    }
+
+    @Override
+    public ResponseEntity<?> createCompany(CreateCompany createCompany) {
+
+        Optional<Company> company = companyRepository.findByPhone(createCompany.getPhone());
+
+        if (company.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Entreprise déjà existante");
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(companyRepository.save(new Company(
+                        createCompany.getName(),
+                        createCompany.getPhone(),
+                        createCompany.getAddress(),
+                        createCompany.getCity(),
+                        createCompany.getCountry()
+                )
+        ));
+    }
+
+    @Override
+    public ResponseEntity<?> getCompany() {
+
+        if (!companyRepository.findAll().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(companyRepository.findAll());
+        }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Liste vide");
+    }
+
+    @Override
+    public ResponseEntity<?> deleteCompany(int id) {
+        Optional<Company> company = companyRepository.findById(id);
+
+        if (company.isPresent()) {
+            companyRepository.delete(company.get());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+    }
+
+    @Override
+    public ResponseEntity<?> findCompanyById(int id) {
+        Optional<Company> company = companyRepository.findById(id);
+
+
+        if (company.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(company.get());
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @Override
+    public ResponseEntity<?> updateCompany(int id, UpdateCompany updateCompany) {
+        Optional<Company> companyOptional = companyRepository.findById(id);
+
+        if (companyOptional.isPresent()) {
+            Company company = companyOptional.get();
+            company.setName(updateCompany.getName());
+            company.setPhone(updateCompany.getPhone());
+            company.setAddress(updateCompany.getAddress());
+            company.setCity(updateCompany.getCity());
+            company.setCountry(updateCompany.getCountry());
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(companyRepository.save(company));
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

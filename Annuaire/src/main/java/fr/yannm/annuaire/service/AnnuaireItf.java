@@ -1,5 +1,7 @@
 package fr.yannm.annuaire.service;
 
+import fr.yannm.annuaire.model.company.CreateCompany;
+import fr.yannm.annuaire.model.company.UpdateCompany;
 import fr.yannm.annuaire.model.person.CreatePerson;
 import fr.yannm.annuaire.model.person.Person;
 import fr.yannm.annuaire.model.person.UpdatePerson;
@@ -42,5 +44,16 @@ public interface AnnuaireItf {
     public ResponseEntity<?> updatePersonRest(int id, UpdatePerson updatePerson);
 
     public ResponseEntity<?> findPersonRest(String name);
+
+    public ResponseEntity<?> getCompany();
+
+    public ResponseEntity<?> createCompany(CreateCompany createCompany);
+
+    public ResponseEntity<?> deleteCompany(int id);
+
+    public ResponseEntity<?> findCompanyById(int id);
+
+    public ResponseEntity<?> updateCompany(int id, UpdateCompany updateCompany);
+
 
 }

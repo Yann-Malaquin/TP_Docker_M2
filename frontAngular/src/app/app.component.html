@@ -70,21 +70,40 @@
               <div class="sb-sidenav-menu-heading">Annuaire</div>
               <a
                 class="nav-link"
+                [routerLink]="['annuaire/personnes']"
+              >
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-address-book fa-fw" style="color: yellow"></i>
+                </div>
+                Liste des personnes
+              </a>
+              <a
+                class="nav-link"
+                [routerLink]="['annuaire/entreprises']"
+              >
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-building fa-fw" style="color: yellow"></i>
+                </div>
+                Liste des entreprises
+              </a>
+              <div class="sb-sidenav-menu-heading">Ajout</div>
+              <a
+                class="nav-link"
                 [routerLink]="['/creationPersonne']"
               >
                 <div class="sb-nav-link-icon">
-                  <i class="fas fa-user-plus fa-fw"></i>
+                  <i class="fas fa-user-plus fa-fw" style="color: yellow"></i>
                 </div>
                 Ajouter une personne
               </a>
               <a
                 class="nav-link"
-                [routerLink]="['/']"
+                [routerLink]="['/creationEntreprise']"
               >
                 <div class="sb-nav-link-icon">
-                  <i class="fas fa-address-book fa-fw"></i>
+                  <i class="fas fa-building fa-fw" style="color: yellow"></i>
                 </div>
-                Liste des personnes
+                Ajouter une entreprise
               </a>
             </div>
           </div>
