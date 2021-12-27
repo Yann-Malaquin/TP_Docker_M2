@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Person} from "../../models/person.model";
+import {Person} from "../../models/person/person.model";
 import {AnnuaireService} from "../../services/annuaire.service";
 
 @Component({
@@ -16,15 +16,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPersons();
-  }
-
-  getPersons() {
-    this.annuaireService.getPersons()
-      .subscribe(annuaireResponse => {
-          this.annuaire = annuaireResponse;
-        }
-      );
   }
 
 }

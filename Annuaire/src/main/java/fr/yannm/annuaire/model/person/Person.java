@@ -1,9 +1,9 @@
 package fr.yannm.annuaire.model.person;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import fr.yannm.annuaire.model.company.Company;
+
+import javax.persistence.*;
 
 /**
  * Table person
@@ -27,6 +27,11 @@ public class Person {
     private String phone;
     private String city;
 
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    @JsonIgnoreProperties({ "personRestList" })
+    private Company company;
+
     public Person() {
     }
 
@@ -36,6 +41,16 @@ public class Person {
         this.surname = surname;
         this.phone = phone;
         this.city = city;
+    }
+
+    public Person(String name, String surname, String phone, String city, Company company) {
+        super();
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.city = city;
+        this.company = company;
+
     }
 
     public int getId() {

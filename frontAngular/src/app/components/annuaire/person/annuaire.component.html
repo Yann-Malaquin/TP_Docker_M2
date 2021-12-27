@@ -3,10 +3,10 @@
   <div class="card mb-4">
     <div class="card-header">
       <i class="fas fa-table me-1"></i>
-      Liste annuaire
+      {{title}}
     </div>
     <div class="card-body">
-      <table class="table">
+      <table class="table" *ngIf="!error;else errorBlock">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -18,7 +18,7 @@
             <th scope="col"></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="!isCompany;else companyBlock">
           <tr *ngFor="let person of annuaire">
             <th scope="row">{{person.id}}</th>
             <td>{{person.name}}</td>
@@ -31,13 +31,37 @@
               </a>
             </td>
             <td>
-              <a [routerLink]="['']" (click)="onDelete(person.id)">
+              <a [routerLink]="['/annuaire/personnes']" (click)="onDelete(person.id)">
                 <i class="fas fa-trash"></i>
               </a>
             </td>
           </tr>
         </tbody>
+        <ng-template #companyBlock>
+          <tbody>
+            <tr *ngFor="let person of annuaire">
+              <th scope="row">{{person.id}}</th>
+              <td>{{person.name}}</td>
+              <td>{{person.surname}}</td>
+              <td>{{person.phone}}</td>
+              <td>{{person.city}}</td>
+              <td>
+                <a [routerLink]="['/edit', person.id]">
+                  <i class="fas fa-edit"></i>
+                </a>
+              </td>
+              <td>
+                <a [routerLink]="['/annuaire/personnes']" (click)="onDelete(person.id)">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </ng-template>
       </table>
+      <ng-template #errorBlock>
+        {{errorMessage}}
+      </ng-template>
     </div>
   </div>
 </div>

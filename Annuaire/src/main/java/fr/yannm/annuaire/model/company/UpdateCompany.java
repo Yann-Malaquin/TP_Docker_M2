@@ -1,4 +1,4 @@
-package fr.yannm.annuaire.model.person;
+package fr.yannm.annuaire.model.company;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,8 +8,8 @@ import lombok.Setter;
 /**
  * @author Yann
  * @version 1.0
- * @name : CreatePerson
- * @created 07/12/2021 - 17:01
+ * @name : UpdateCompany
+ * @created 14/12/2021 - 16:41
  * @project Annuaire
  * @copyright Yann
  **/
@@ -17,11 +17,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreatePerson {
-
+public class UpdateCompany {
     private String name;
-    private String surname;
     private String phone;
+    private String address;
     private String city;
-    private int company_id;
+    private String country;
 }

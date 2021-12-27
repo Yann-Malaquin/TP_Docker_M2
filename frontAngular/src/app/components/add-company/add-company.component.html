@@ -2,47 +2,34 @@
   <div class="row justify-content-center">
     <div class="col-lg-7">
       <div class="card shadow-lg border-0 rounded-lg mt-5">
-        <div class="card-header" *ngIf="this.isAddingPerson else modifyingHeaderBlock">
-          <h3 class="text-center font-weight-light my-4">Ajouter une personne</h3>
+        <div class="card-header" *ngIf="this.isAddingCompany else modifyingHeaderBlock">
+          <h3 class="text-center font-weight-light my-4">Ajouter une entreprise</h3>
         </div>
         <ng-template #modifyingHeaderBlock>
           <div class="card-header">
-            <h3 class="text-center font-weight-light my-4">Modifier une personne</h3>
+            <h3 class="text-center font-weight-light my-4">Modifier une entreprise</h3>
           </div>
         </ng-template>
+
         <div class="card-body">
           <form
             novalidate
-            [formGroup]="addPerson"
-            (ngSubmit)="onSubmit(addPerson.value)"
+            [formGroup]="addCompany"
+            (ngSubmit)="onSubmit(addCompany.value)"
           >
             <div class="row mb-3">
               <div class="col-md-6">
                 <div class="form-floating mb-3 mb-md-0">
                   <input
                     class="form-control"
-                    id="inputLastName"
-                    formControlName="inputLastName"
+                    id="inputName"
+                    formControlName="inputName"
                     type="text"
                     placeholder="Nom"
                   />
-                  <label for="inputLastName">Nom</label>
+                  <label for="inputName">Nom</label>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <input
-                    class="form-control"
-                    id="inputFirstName"
-                    formControlName="inputSurname"
-                    type="text"
-                    placeholder="Prénom"
-                  />
-                  <label for="inputFirstName">Prénom</label>
-                </div>
-              </div>
-            </div>
-            <div class="row mb-3">
               <div class="col-md-6">
                 <div class="form-floating mb-3 mb-md-0">
                   <input
@@ -55,6 +42,22 @@
                   <label for="inputPhone">Téléphone</label>
                 </div>
               </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-0">
+                <div class="form-floating mb-3 mb-md-0">
+                  <input
+                    class="form-control"
+                    id="inputAddress"
+                    formControlName="inputAddress"
+                    type="text"
+                    placeholder="Adresse"
+                  />
+                  <label for="inputAddress">Adresse</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
               <div class="col-md-6">
                 <div class="form-floating mb-3 mb-md-0">
                   <input
@@ -67,29 +70,20 @@
                   <label for="inputCity">Ville</label>
                 </div>
               </div>
-            </div>
-            <div class="row mb-3" *ngIf="isAddingPerson">
-              <div class="col-md-0">
+              <div class="col-md-6">
                 <div class="form-floating mb-3 mb-md-0">
-                  <select
-                    class="form-select"
-                    id="inputCompany"
-                    formControlName="inputCompany"
-                    placeholder="Entreprise"
-
-                  >
-                    <option
-                      *ngFor="let company of annuaire"
-                      [value]="company.id"
-                    >
-                      {{company.name}}
-                    </option>
-                  </select>
-                  <label for="inputCompany">Entreprise</label>
+                  <input
+                    class="form-control"
+                    id="inputCountry"
+                    formControlName="inputCountry"
+                    type="text"
+                    placeholder="Pays"
+                  />
+                  <label for="inputCountry">Pays</label>
                 </div>
               </div>
             </div>
-            <div class="mt-4 mb-0" *ngIf="isAddingPerson; else modifyingButtonBlock">
+            <div class="mt-4 mb-0" *ngIf="isAddingCompany; else modifyingButtonBlock">
               <div class="d-grid">
                 <button
                   type="submit"

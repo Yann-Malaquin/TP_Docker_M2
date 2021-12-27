@@ -4,4 +4,5 @@ export class Person {
   surname: string | undefined;
   phone: string | undefined;
   city: string | undefined;
+  company_id?: number
 }
