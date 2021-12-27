@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * Controller pour les personnes
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @copyright Yann
  **/
 @Controller
+@ApiIgnore
 public class PersonController {
 
     @Autowired

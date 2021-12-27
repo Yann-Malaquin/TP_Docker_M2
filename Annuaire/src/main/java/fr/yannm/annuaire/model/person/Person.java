@@ -2,6 +2,9 @@ package fr.yannm.annuaire.model.person;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fr.yannm.annuaire.model.company.Company;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.persistence.*;
 
@@ -17,19 +20,30 @@ import javax.persistence.*;
  **/
 @Entity
 @Table(name = "person")
+@ApiModel(value = "Person", description = "Entité qui caractérise une personne.")
 public class Person {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(" L'id de la personne.")
     private int id;
+
+    @ApiModelProperty("Le nom de la personne.")
     private String name;
+
+    @ApiModelProperty("Le prénom de la personne.")
     private String surname;
+
+    @ApiModelProperty("Le numéro de téléphone de la personne.")
     private String phone;
+
+    @ApiModelProperty("La ville de la personne.")
     private String city;
 
     @ManyToOne
     @JoinColumn(name = "company_id")
     @JsonIgnoreProperties({ "personRestList" })
+    @ApiModelProperty(value = "L'entreprise de la personne.", required = false)
     private Company company;
 
     public Person() {
