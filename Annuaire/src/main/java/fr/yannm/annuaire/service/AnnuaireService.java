@@ -120,10 +120,10 @@ public class AnnuaireService implements AnnuaireItf {
 
     @Override
     public Person updatePerson(String id, String name, String surname, String phone, String city) {
-        System.out.println("name = " + name);
-        System.out.println("id = " + id);
+        // Récupération de la personne depuis son ID
         Optional<Person> p = personRepository.findById(Integer.parseInt(id));
         Person toUpdate = null;
+        // Si la personne a été trouvé
         if (p.isPresent()) {
             System.out.println(toUpdate);
             toUpdate = p.get();
@@ -152,10 +152,13 @@ public class AnnuaireService implements AnnuaireItf {
     @Override
     public ResponseEntity<?> createPersonRest(CreatePerson createPerson) {
 
+        // Récupération de la personne par son numéro de téléphone
         Optional<Person> person = personRepository.findByPhone(createPerson.getPhone());
+        // Récupération de l'entreprise grâce à son ID
         Optional<Company> companyOptional = companyRepository.findById(createPerson.getCompany_id());
         Company company = null;
 
+        // Si l'on a récupéré une personne alors cela signifie que l'on ne peut pas en créer une nouvelle
         if (person.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Personne déjà existante");
         }
