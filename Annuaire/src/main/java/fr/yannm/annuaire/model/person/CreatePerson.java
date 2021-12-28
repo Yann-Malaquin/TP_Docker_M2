@@ -33,4 +33,5 @@ public class CreatePerson {
     private String city;
     @ApiModelProperty("L'id de l'entreprise rattachée.")
     private int company_id;
+
 }

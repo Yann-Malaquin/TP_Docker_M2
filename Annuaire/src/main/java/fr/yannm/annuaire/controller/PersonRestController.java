@@ -4,7 +4,7 @@ import fr.yannm.annuaire.model.company.CreateCompany;
 import fr.yannm.annuaire.model.company.UpdateCompany;
 import fr.yannm.annuaire.model.person.CreatePerson;
 import fr.yannm.annuaire.model.person.UpdatePerson;
-import fr.yannm.annuaire.service.Annuaire;
+import fr.yannm.annuaire.service.AnnuaireService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,71 +26,71 @@ import org.springframework.web.bind.annotation.*;
 public class PersonRestController {
 
     @Autowired
-    Annuaire annuaire;
+    AnnuaireService annuaireService;
 
     @GetMapping("annuaireRest")
     @ApiOperation("Retourne toutes les personnes.")
     public ResponseEntity<?> getPersons() {
-        return annuaire.getPersonsRest();
+        return annuaireService.getPersonsRest();
     }
 
     @PostMapping("createPersonRest")
     @ApiOperation("Crée une personne en fonctione des données récupérées.")
     public ResponseEntity<?> createPerson(@Validated @RequestBody CreatePerson createPerson) {
-        return annuaire.createPersonRest(createPerson);
+        return annuaireService.createPersonRest(createPerson);
     }
 
     @DeleteMapping("deletePersonRest/{id}")
     @ApiOperation("Supprime une personne en fonction de son id.")
     public ResponseEntity<?> deletePerson(@PathVariable("id") int id) {
-        return annuaire.deletePersonRest(id);
+        return annuaireService.deletePersonRest(id);
     }
 
     @GetMapping("annuaire/person/{id}")
     @ApiOperation("Retourne une personne en fonction de son id.")
     public ResponseEntity<?> getPerson(@PathVariable("id") int id) {
-        return annuaire.findByIdRest(id);
+        return annuaireService.findByIdRest(id);
     }
 
     @PutMapping("annuaire/updatePerson/{id}")
     @ApiOperation("Récupère une personne en fonction de son id et MAJ les données en fonction des données récupérées.")
     public ResponseEntity<?> updatePerson(@PathVariable("id") int id, @Validated @RequestBody UpdatePerson updatePerson) {
-        return annuaire.updatePersonRest(id, updatePerson);
+        return annuaireService.updatePersonRest(id, updatePerson);
     }
 
     @GetMapping("annuaire/search/{name}")
     @ApiOperation("Recherche une ou plusieurs personnes en fonction du nom.")
     public ResponseEntity<?> getPersons(@PathVariable("name") String name) {
-        return annuaire.findPersonRest(name);
+        return annuaireService.findPersonRest(name);
     }
 
     @PostMapping("createCompany")
     @ApiOperation("Création d'une entreprise en fonction des données récupérées.")
     public ResponseEntity<?> createCompany(@Validated @RequestBody CreateCompany createCompany) {
-        return annuaire.createCompany(createCompany);
+        return annuaireService.createCompany(createCompany);
     }
 
     @GetMapping("annuaireCompany")
     @ApiOperation("Retourne toutes les entreprises.")
     public ResponseEntity<?> getCompanies() {
-        return annuaire.getCompany();
+        return annuaireService.getCompany();
     }
 
     @DeleteMapping("deleteCompany/{id}")
     @ApiOperation("Supprime une entreprise en fonction de son id.")
     public ResponseEntity<?> deleteCompany(@PathVariable("id") int id) {
-        return annuaire.deleteCompany(id);
+        return annuaireService.deleteCompany(id);
     }
 
     @GetMapping("annuaire/company/{id}")
     @ApiOperation("Retourne une entreprise en fonction de son entreprise.")
     public ResponseEntity<?> getCompany(@PathVariable("id") int id) {
-        return annuaire.findCompanyById(id);
+        return annuaireService.findCompanyById(id);
     }
 
     @PutMapping("annuaire/updateCompany/{id}")
     @ApiOperation("Récupère une entreprise en fonction de son id et MAJ les données en fonction des données récupérées.")
     public ResponseEntity<?> updateCompany(@PathVariable("id") int id, @Validated @RequestBody UpdateCompany updateCompany) {
-        return annuaire.updateCompany(id, updateCompany);
+        return annuaireService.updateCompany(id, updateCompany);
     }
 }

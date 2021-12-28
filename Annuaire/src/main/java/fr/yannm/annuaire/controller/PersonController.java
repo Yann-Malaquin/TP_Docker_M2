@@ -1,7 +1,7 @@
 package fr.yannm.annuaire.controller;
 
 import fr.yannm.annuaire.repository.PersonRepository;
-import fr.yannm.annuaire.service.Annuaire;
+import fr.yannm.annuaire.service.AnnuaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class PersonController {
     PersonRepository personRepository;
 
     @Autowired
-    Annuaire annuaire;
+    AnnuaireService annuaireService;
 
     /**
      * Création de 3 personnes dans la BDD
@@ -37,7 +37,7 @@ public class PersonController {
     @GetMapping("createPersons")
     public ResponseEntity<?> createPerson() {
 
-        return annuaire.createPersons();
+        return annuaireService.createPersons();
     }
 
     /**
@@ -60,7 +60,7 @@ public class PersonController {
                              Model model) {
 
         // Ajout de la map comme attribut pour la vue
-        model.addAttribute("personMap", annuaire.getPersons());
+        model.addAttribute("personMap", annuaireService.getPersons());
 
         return "personList";
     }
@@ -74,7 +74,7 @@ public class PersonController {
                                   Model model) {
 
         if (!name.equals("*")) {
-            model.addAttribute("personMap", annuaire.findByName(name));
+            model.addAttribute("personMap", annuaireService.findByName(name));
         }
         return "personList";
     }
@@ -88,7 +88,7 @@ public class PersonController {
     @PostMapping("annuaire/remove")
     public String deletePerson(@RequestParam(name = "id", required = false, defaultValue = "*") int id) {
 
-        annuaire.deletePerson(id);
+        annuaireService.deletePerson(id);
 
         return "redirect:";
     }
@@ -99,7 +99,7 @@ public class PersonController {
                                @RequestParam(name = "phone", required = false, defaultValue = "*") String phone,
                                @RequestParam(name = "city", required = false, defaultValue = "*") String city) {
 
-        annuaire.addPerson(name, surname, phone, city);
+        annuaireService.addPerson(name, surname, phone, city);
 
         return "redirect:annuaire";
     }
@@ -112,7 +112,7 @@ public class PersonController {
                                         @RequestParam(name = "city", required = false, defaultValue = "*") String city,
                                         Model model) {
 
-        model.addAttribute("person", annuaire.findById(Integer.parseInt(id)));
+        model.addAttribute("person", annuaireService.findById(Integer.parseInt(id)));
 
         return "updatePerson";
     }
@@ -126,7 +126,7 @@ public class PersonController {
                                Model model
     ) {
 
-        model.addAttribute("person", annuaire.updatePerson(id, name, surname, phone, city));
+        model.addAttribute("person", annuaireService.updatePerson(id, name, surname, phone, city));
 
         return "redirect:annuaire";
     }
