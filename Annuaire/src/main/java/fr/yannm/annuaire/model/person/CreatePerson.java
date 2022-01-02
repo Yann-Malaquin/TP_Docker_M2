@@ -1,13 +1,10 @@
 package fr.yannm.annuaire.model.person;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author Yann

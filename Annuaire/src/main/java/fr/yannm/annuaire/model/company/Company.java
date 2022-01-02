@@ -27,7 +27,6 @@ import java.util.List;
 @Getter
 @Setter
 @ApiModel(value = "Company", description = "Entité qui caractérise une entreprise.")
-
 public class Company {
 
     @Id
