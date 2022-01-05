@@ -41,4 +41,4 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 ## Launch the wait tool and then your application
 CMD /wait
 
-ENTRYPOINT ["dockerize", "-wait", "tcp://db:9001", "-timeout", "60m","java","-agentlib:jdwp=transport=dt_socket,address=8002,server=y,suspend=n", "-cp","app:app/lib/*","fr.yannm.annuaire.AnnuaireApplication"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","fr.yannm.annuaire.AnnuaireApplication"]
