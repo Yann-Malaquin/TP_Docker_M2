@@ -1,44 +1,26 @@
-#### Stage 1: Build the application
+#### image d'un jdk8 sous alpine
 FROM openjdk:8-jdk-alpine as build
 
-# Set the current working directory inside the image
+# Working directory au sein de l'image
 WORKDIR /app
 
-# Copy maven executable to the image
+# Copie du maven executable vers l'image
 COPY mvnw .
 COPY .mvn .mvn
 
-# Copy the pom.xml file
+# Copie du fichier pom.xml
 COPY pom.xml .
 
-# Build all the dependencies in preparation to go offline.
-# This is a separate step so the dependencies will be cached unless
-# the pom.xml file has changed.
+# Build de toutes les dépendances
+# Cette étape permettra de mettre les dépendances en cache, sauf si le pom.xml a changé
 RUN ./mvnw dependency:go-offline -B
 
-# Copy the project source
+# Copie du projet
 COPY src src
 
-# Package the application
+# Package de l'application
 RUN ./mvnw package -DskipTests && \
     mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
-#### Stage 2: A minimal docker image with command to run the app
-FROM openjdk:8-jre-alpine
-
-ARG DEPENDENCY=/app/target/dependency
-
-# Copy project dependencies from the build stage
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-
-ENV DOCKERIZE_VERSION v0.6.0
-RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-
-## Launch the wait tool and then your application
-CMD /wait
-
-ENTRYPOINT ["java","-cp","app:app/lib/*","fr.yannm.annuaire.AnnuaireApplication"]
+# Lancement du serveur springboot
+CMD ./mvnw spring-boot:run

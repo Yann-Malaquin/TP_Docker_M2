@@ -18,14 +18,15 @@ et Docker.
 * Angular
 * Thymeleaf
 * HSQLDB
-* nodejs 16 et npm
+* nodejs 16
+* npm 8.1.2
 
 ### Lancer l'environnement de développement
 
 Toutes les commandes sont réalisées sous Windows.
 
 ### Récupération du dépôt github
-```bash
+```
 git clone https://github.com/Yann-Malaquin/Annuaire.git
 ```
 
@@ -34,30 +35,33 @@ git clone https://github.com/Yann-Malaquin/Annuaire.git
 docker-compose up --build
 ```
 
-### Kafka
+##Kafka
 
-Ne fonctionne pas avec le docker, problème lié avec le localhost que je n'ai pas su résoudre ...
+### Utilisation Kafka
 
-Pour l'utiliser, angular et hsqldb peuvent être lancés via docker mais springboot en local avec la commande
-
-```bash
-mvn spring-boot:run
-```
-
-### Utilisation kafka
-
-Nom du topic : annuaire
+Nom du topic : annuaire<br/>
 Format Json :
-```bash 
+
+```json 
 {"name": "Hood","surname": "Shannon","phone": "+33 (816) 462-3396","city": "Johnsonburg"}
 ```
-Un fichier est églament fourni pour permettre un ajout plus important:
+
+Un fichier est également fourni pour avec plusieurs personnes. <br/>
 Nom du fichier : producer.json
 
+Pour accéder à Kafka, ouvrir un terminal, saisir la commande suivante
+
 ```bash
-.\kafka-console-producer --broker-list localhost:9092 --topic annuaire \\< C:\Users\Yann\Desktop\kafka_2.10-0.10.2.1\producer.json
+docker exec -ti tp_kafka_1 /bin/sh
 ```
 
+```shell
+sh-4.4$ kafka-console-producer --broker-list kafka:9092 --topic annuaire
+> {"name": "Hood","surname": "Shannon","phone": "+33 (816) 462-3396","city": "Johnsonburg"}
+```
+
+Appuyez sur entrée. <br/> 
+Rafraîchir la page web et si le modèle correspond, la personne sera ajoutée.
 
 
 

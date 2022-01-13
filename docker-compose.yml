@@ -17,6 +17,7 @@ services:
     build:
       context: ./annuaire
       dockerfile: Dockerfile
+    hostname: spring
     ports:
       - 8082:8082
       - 8001:8001
@@ -24,17 +25,14 @@ services:
     depends_on:
       - db
       - kafka
-      - init-kafka
     environment:
-      BOOTSTRAP_SERVERS: kafka:9092
+      BOOTSTRAP_SERVERS_CONFIG: kakfa:9092
       SPRING_DATASOURCE_URL: jdbc:hsqldb:hsql:/db/test
       SPRING_DATASOURCE_USERNAME: sa
       SPRING_DATASOURCE_PASSWORD:
-    networks:
-      - app-tier
 
   db:
-    image: mitchtalmadge/hsqldb
+    image: mitchtalmadge/hsqldb:2.5.0
     environment:
       - HSQLDB_TRACE=true
       - HSQLDB_SILENT=false
@@ -46,8 +44,6 @@ services:
       - 9001:9001
     volumes:
       - /opt/database
-    networks:
-      - app-tier
 
 
   zookeeper:
@@ -64,35 +60,24 @@ services:
       - zookeeper
     ports:
       - '9092:9092'
-    expose:
-      - '29092'
+    hostname: kafka
+    links:
+      - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: OUTSIDE
+      KAFKA_LISTENERS: OUTSIDE://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: OUTSIDE://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: '1'
       KAFKA_MIN_INSYNC_REPLICAS: '1'
-      KAFKA_ADVERTISED_HOST_NAME: kafka
-
 
   init-kafka:
-    image: confluentinc/cp-kafka:6.1.1
-    depends_on:
-      - kafka
-    entrypoint: [ '/bin/sh', '-c' ]
-    command: |
-      "
-      # blocks until kafka is reachable
-      kafka-topics --bootstrap-server kafka:29092 --list
-      
-      echo -e 'Creating kafka topics'
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic annuaire --replication-factor 1 --partitions 1
-      
-      echo -e 'Successfully created the following topics:'
-      kafka-topics --bootstrap-server kafka:29092 --list
-      "
+    build:
+      context: ./dockerfile/kafka
+      dockerfile: Dockerfile
 
 volumes:
   db-data:

@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:16.13.1
 
 RUN mkdir /usr/src/app && \
     npm install -g @angular/cli
