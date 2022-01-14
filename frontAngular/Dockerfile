@@ -7,7 +7,6 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm install --save-dev @angular-devkit/build-angular && \
-  npm install
+RUN rm "node_modules"
 
-CMD ng serve --host 0.0.0.0 --port 4200
+CMD ls
