@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm update && \
+RUN npm i -g @angular-devkit/build-angular --legacy-peer-deps && \
     npm install
 
 CMD ng serve --host 0.0.0.0 --port 4200
