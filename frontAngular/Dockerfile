@@ -7,9 +7,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm i -g @angular-devkit/build-angular && \
-    npm install && \
-    ng update && \
-    npm update
+RUN npm uninstall @angular-devkit/build-angular &&\
+    npm install @angular-devkit/build-angular &&\
+    ng update
 
 CMD ng serve --host 0.0.0.0 --port 4200
