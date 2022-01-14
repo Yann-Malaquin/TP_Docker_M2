@@ -7,6 +7,6 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN rm "node_modules"
+RUN rm "/node_modules"
 
 CMD ls
