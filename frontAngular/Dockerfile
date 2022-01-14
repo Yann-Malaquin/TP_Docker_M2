@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm i -g @angular-devkit/build-angular:dev-server && \
+RUN npm i -g @angular-devkit/build-angular && \
     npm install && \
     ng update && \
     npm update
