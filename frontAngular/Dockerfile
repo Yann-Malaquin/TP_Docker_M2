@@ -1,12 +1,16 @@
-FROM node:16.13.1
-
-RUN mkdir /usr/src/app
+FROM node:16.13.1-alpine
 
 WORKDIR /usr/src/app
 
-RUN npm install -g @angular/cli
+COPY package.json .
+COPY package-lock.json .
+
+RUN npm install
 
 COPY . .
 
-CMD npm install && ng serve --host 0.0.0.0 --port 4200
+EXPOSE 4200
+
+CMD /usr/src/app_modules/.bin/ng serve --host 0.0.0.0
+
 
