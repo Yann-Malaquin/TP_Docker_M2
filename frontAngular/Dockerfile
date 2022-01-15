@@ -1,9 +1,9 @@
 FROM node:16.13.1-alpine
 
-WORKDIR /usr/src/app
+RUN mkdir /usr/src/app && \
+    npm install -g @angular/cli
 
-COPY package.json .
-COPY package-lock.json .
+WORKDIR /usr/src/app
 
 RUN npm install
 
@@ -11,4 +11,4 @@ COPY . .
 
 EXPOSE 4200
 
-CMD /usr/src/app/node_modules/.bin/ng serve --host 0.0.0.0 --disable-host-check
+CMD ng serve --host 0.0.0.0 --disable-host-check
