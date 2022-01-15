@@ -1,5 +1,13 @@
 FROM confluentinc/cp-kafka:6.1.1
 
-CMD kafka-topics --bootstrap-server kafka:9092 --list && \
-    kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic annuaire --replication-factor 1 --partitions 1 && \
-    kafka-topics --bootstrap-server kafka:9092 --list
+ENV KAFKA_BROKER_ID=1 \
+      KAFKA_ADVERTISED_HOST_NAME=kafka \
+      KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 \
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=OUTSIDE:PLAINTEXT \
+      KAFKA_INTER_BROKER_LISTENER_NAME=OUTSIDE \
+      KAFKA_LISTENERS=OUTSIDE://kafka:9092 \
+      KAFKA_ADVERTISED_LISTENERS=OUTSIDE://kafka:9092 \
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 \
+      KAFKA_MIN_INSYNC_REPLICAS=1
+
+EXPOSE 9092

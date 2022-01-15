@@ -8,82 +8,55 @@ services:
       dockerfile: Dockerfile
     ports:
       - 4200:4200
-    networks:
-      - app-tier
     container_name: annuaire-angular
 
   spring:
     build:
       context: ./annuaire
       dockerfile: Dockerfile
-    hostname: spring
     ports:
       - 8082:8082
       - 8001:8001
-    restart: "no"
     depends_on:
       - db
       - kafka
-    environment:
-      BOOTSTRAP_SERVERS_CONFIG: kakfa:9092
-      SPRING_DATASOURCE_URL: jdbc:hsqldb:hsql:/db/test
-      SPRING_DATASOURCE_USERNAME: sa
-      SPRING_DATASOURCE_PASSWORD:
     container_name: annuaire-spring
 
   db:
-    image: mitchtalmadge/hsqldb:2.5.0
-    environment:
-      - HSQLDB_TRACE=true
-      - HSQLDB_SILENT=false
-      - HSQLDB_USER=sa
-      - HSQLDB_PASSWORD=
-      - HSQLDB_DATABASE_HOST=localhost
-      - HSQLDB_DATABASE_ALIAS=test
+    build:
+      context: ./dockerfile/hsqldb
+      dockerfile: Dockerfile
     ports:
       - 9001:9001
-    volumes:
-      - ./data/db:/opt/database
     container_name: annuaire-hsqldb
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:6.1.1
+    build:
+      context: ./dockerfile/zookeeper
+      dockerfile: Dockerfile
     ports:
-      - "2181:2181"
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
+      - 2181:2181
     container_name: annuaire-zookeeper
 
   kafka:
-    image: confluentinc/cp-kafka:6.1.1
+    build:
+      context: ./dockerfile/kafka
+      dockerfile: Dockerfile
     depends_on:
       - zookeeper
     ports:
-      - '9092:9092'
+      - 9092:9092
     hostname: kafka
     links:
       - zookeeper
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ADVERTISED_HOST_NAME: kafka
-      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: OUTSIDE:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: OUTSIDE
-      KAFKA_LISTENERS: OUTSIDE://kafka:9092
-      KAFKA_ADVERTISED_LISTENERS: OUTSIDE://kafka:9092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: '1'
-      KAFKA_MIN_INSYNC_REPLICAS: '1'
     container_name: annuaire-kafka
 
   init-kafka:
     build:
-      context: ./dockerfile/kafka
+      context: dockerfile/init-kafka
       dockerfile: Dockerfile
     container_name: annuaire-init-kafka
 
 volumes:
   db-data:
 
-networks:
-  app-tier:
-    driver: bridge
