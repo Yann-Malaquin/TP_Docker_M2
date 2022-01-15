@@ -10,6 +10,7 @@ services:
       - 4200:4200
     networks:
       - app-tier
+    container_name: annuaire-angular
 
   spring:
     build:
@@ -28,6 +29,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:hsqldb:hsql:/db/test
       SPRING_DATASOURCE_USERNAME: sa
       SPRING_DATASOURCE_PASSWORD:
+    container_name: annuaire-spring
 
   db:
     image: mitchtalmadge/hsqldb:2.5.0
@@ -42,7 +44,7 @@ services:
       - 9001:9001
     volumes:
       - /opt/database
-
+    container_name: annuaire-hsqldb
 
   zookeeper:
     image: confluentinc/cp-zookeeper:6.1.1
@@ -50,8 +52,8 @@ services:
       - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    container_name: annuaire-zookeeper
 
-    # reachable on 9092 from the host and on 29092 from inside docker compose
   kafka:
     image: confluentinc/cp-kafka:6.1.1
     depends_on:
@@ -71,11 +73,13 @@ services:
       KAFKA_ADVERTISED_LISTENERS: OUTSIDE://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: '1'
       KAFKA_MIN_INSYNC_REPLICAS: '1'
+    container_name: annuaire-kafka
 
   init-kafka:
     build:
       context: ./dockerfile/kafka
       dockerfile: Dockerfile
+    container_name: annuaire-init-kafka
 
 volumes:
   db-data:
