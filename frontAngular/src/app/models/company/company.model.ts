@@ -1,4 +1,4 @@
-import {Person} from "../person/person.model";
+import {Person} from '../person/person.model';
 
 export class Company {
   id?:number;

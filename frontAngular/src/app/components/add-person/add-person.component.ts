@@ -1,9 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {AnnuaireService} from "../../services/annuaire.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Person} from "../../models/person/person.model";
-import {Company} from "../../models/company/company.model";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {AnnuaireService} from '../../services/annuaire.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Person} from '../../models/person/person.model';
+import {Company} from '../../models/company/company.model';
 
 @Component({
   selector: 'app-add-person',

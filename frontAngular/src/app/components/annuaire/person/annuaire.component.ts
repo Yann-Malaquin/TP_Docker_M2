@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Person} from "../../../models/person/person.model";
-import {AnnuaireService} from "../../../services/annuaire.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Person} from '../../../models/person/person.model';
+import {AnnuaireService} from '../../../services/annuaire.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-annuaire',
