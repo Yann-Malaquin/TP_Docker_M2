@@ -43,7 +43,7 @@ services:
     ports:
       - 9001:9001
     volumes:
-      - /opt/database
+      - ./data/db:/opt/database
     container_name: annuaire-hsqldb
 
   zookeeper:
