@@ -35,7 +35,7 @@ git clone https://github.com/Yann-Malaquin/Annuaire.git
 docker-compose up --build
 ```
 
-##Kafka
+## Kafka
 
 ### Utilisation Kafka
 
@@ -52,7 +52,7 @@ Nom du fichier : producer.json
 Pour accéder à Kafka, ouvrir un terminal, saisir la commande suivante
 
 ```bash
-docker exec -ti tp_kafka_1 /bin/sh
+docker exec -ti annuaire-kafka /bin/sh
 ```
 
 ```shell
@@ -63,10 +63,15 @@ sh-4.4$ kafka-console-producer --broker-list kafka:9092 --topic annuaire
 Appuyez sur entrée. <br/> 
 Rafraîchir la page web et si le modèle correspond, la personne sera ajoutée.
 
+### URL
 
+#### Thymeleaf
 
+- Affichage de toutes les personnes : [localhost:8082/annuaire](localhost:8082/annuaire)
+- Ajout d'une personne [http://localhost:8082/annuaire/addPerson](http://localhost:8082/annuaire/addPerson)
 
+#### Angular
 
+- Page d'accueil : [http://localhost:4200/](http://localhost:4200/)
 
-
-
+Ensuite utilisation de la navbar pour naviguer au travers de l'application.
