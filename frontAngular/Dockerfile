@@ -1,11 +1,9 @@
 FROM node:16.13.1-alpine
 
-RUN mkdir /usr/src/app && \
-    npm install -g @angular/cli
-
 WORKDIR /usr/src/app
 
-RUN npm install
+RUN npm install -g @angular/cli && \
+    npm install
 
 COPY . .
 
