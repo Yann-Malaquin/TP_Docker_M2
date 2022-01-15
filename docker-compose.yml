@@ -6,8 +6,6 @@ services:
     build:
       context: ./frontAngular
       dockerfile: Dockerfile
-    volumes: # Volume binding
-      - ./frontAngular:/usr/src/app
     ports:
       - 4200:4200
     networks:
