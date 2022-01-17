@@ -13,12 +13,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : PersonRestController
  * @created 03/12/2021 - 18:05
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

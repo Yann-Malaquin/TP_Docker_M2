@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.kafka.annotation.KafkaListener;
 
 /**
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : KafkaConsumer
  * @created 28/12/2021 - 14:58
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 @Service
 public class KafkaConsumer {

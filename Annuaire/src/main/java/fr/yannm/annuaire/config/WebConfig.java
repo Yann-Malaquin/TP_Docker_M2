@@ -7,12 +7,12 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : WebConfig
  * @created 04/12/2021 - 16:19
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 @Configuration
 @EnableWebMvc

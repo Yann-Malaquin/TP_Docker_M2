@@ -12,12 +12,12 @@ import springfox.documentation.annotations.ApiIgnore;
 /**
  * Controller pour les personnes
  *
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : PersonController
  * @created 08/11/2021 - 18:53
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 @Controller
 @ApiIgnore

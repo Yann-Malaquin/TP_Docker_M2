@@ -1,7 +1,7 @@
 version: "3.1"
 
 services:
-
+  # Service pour le frontend
   angular:
     build:
       context: ./frontAngular
@@ -9,7 +9,10 @@ services:
     ports:
       - 4200:4200
     container_name: annuaire-angular
+    networks:
+      annuaire-network:
 
+  # Service pour le back
   spring:
     build:
       context: ./annuaire
@@ -21,15 +24,33 @@ services:
       - db
       - kafka
     container_name: annuaire-spring
+    networks:
+      annuaire-network:
 
+ # Service pour la BDD postgreSQL
   db:
     build:
-      context: ./dockerfile/hsqldb
+      context: ./dockerfile/postgres
       dockerfile: Dockerfile
+    volumes:
+      - datadb:/var/lib/postgresql/data
     ports:
-      - 9001:9001
-    container_name: annuaire-hsqldb
+      - 5432:5432
+    container_name: annuaire-postgres
+    networks:
+      annuaire-network:
 
+  # Service pour adminer, permet de voir la BDD
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    container_name: annuaire-adminer
+    networks:
+      annuaire-network:
+
+  # Service pour zookeeper, serveur apache pour kafka
   zookeeper:
     build:
       context: ./dockerfile/zookeeper
@@ -37,7 +58,10 @@ services:
     ports:
       - 2181:2181
     container_name: annuaire-zookeeper
+    networks:
+      annuaire-network:
 
+  # Service pour kafka
   kafka:
     build:
       context: ./dockerfile/kafka
@@ -50,13 +74,28 @@ services:
     links:
       - zookeeper
     container_name: annuaire-kafka
+    networks:
+      annuaire-network:
 
+  # Service pour initialiser kafka, création des topics etc
   init-kafka:
     build:
       context: dockerfile/init-kafka
       dockerfile: Dockerfile
     container_name: annuaire-init-kafka
+    networks:
+      annuaire-network:
 
+# Volume permettant de persister la BDD, le dossier se situera dans le dossier du projet
 volumes:
-  db-data:
+  datadb:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './data/db'
+
+# Le reseau du projet
+networks:
+  annuaire-network:
 

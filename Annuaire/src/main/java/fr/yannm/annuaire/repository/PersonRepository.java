@@ -10,12 +10,12 @@ import java.util.Optional;
 /**
  * Repository pour les personnes
  *
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : PersonRepository
  * @created 08/11/2021 - 18:55
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 @Repository
 public interface PersonRepository extends CrudRepository<Person, Integer> {

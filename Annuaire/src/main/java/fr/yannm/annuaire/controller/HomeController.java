@@ -9,12 +9,12 @@ import springfox.documentation.annotations.ApiIgnore;
 /**
  * Class test
  *
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : HomeController
  * @created 08/11/2021 - 18:17
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 @Controller
 @ApiIgnore

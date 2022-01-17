@@ -7,12 +7,12 @@ import lombok.Setter;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : UpdatePerson
  * @created 08/12/2021 - 11:15
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 @Getter
 @Setter

@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : CompanyRepository
  * @created 21/12/2021 - 14:53
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 @Repository
 public interface CompanyRepository extends CrudRepository<Company, Integer> {

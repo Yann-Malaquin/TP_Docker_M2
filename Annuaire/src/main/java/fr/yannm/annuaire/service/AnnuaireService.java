@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : Annuaire
  * @created 22/11/2021 - 16:01
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 @Service(value = "annuaire")
 public class AnnuaireService implements AnnuaireItf {

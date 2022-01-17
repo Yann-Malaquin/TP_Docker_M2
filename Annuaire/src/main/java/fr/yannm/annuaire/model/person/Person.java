@@ -10,12 +10,12 @@ import javax.persistence.*;
 /**
  * Table person
  *
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : Person
  * @created 08/11/2021 - 18:46
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 @Entity
 @Table(name = "person")

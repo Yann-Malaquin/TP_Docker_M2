@@ -1,7 +1,12 @@
+
 # TP Programmation Serveur - Composants
 
 Développement d'une application de gestion d'annuaire en s'appuyant sur SpringBoot, Kafka
-et Docker.
+et Docker. </br>
+
+Réalise par :
+
+**Billy Mortreux et Yann Malaquin**
 
 ## Environnement de développement
 
@@ -30,9 +35,14 @@ Toutes les commandes sont réalisées sous Windows.
 git clone https://github.com/Yann-Malaquin/Annuaire.git
 ```
 
-### Lancement du container Docker
+### Lancement du docker-compose.yml
 ```bash
 docker-compose up --build
+```
+
+### Pour supprimer les container
+```bash
+docker-compose down
 ```
 
 ## Kafka

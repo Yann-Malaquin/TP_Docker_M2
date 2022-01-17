@@ -10,12 +10,12 @@ import org.springframework.http.ResponseEntity;
 import java.util.Map;
 
 /**
- * @author Yann
+ * @author Billy Mortreux Yann Malaquin
  * @version 1.0
  * @name : AnnuaireItf
  * @created 22/11/2021 - 15:56
  * @project Annuaire
- * @copyright Yann
+ * @copyright Billy Mortreux Yann Malaquin
  **/
 public interface AnnuaireItf {
 
