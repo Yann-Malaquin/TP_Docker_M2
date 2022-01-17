@@ -4,7 +4,7 @@
 Développement d'une application de gestion d'annuaire en s'appuyant sur SpringBoot, Kafka
 et Docker. </br>
 
-Réalise par :
+Réalisé par :
 
 **Billy Mortreux et Yann Malaquin**
 
