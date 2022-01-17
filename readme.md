@@ -22,7 +22,8 @@ Réalisé par :
 * Spring-boot
 * Angular
 * Thymeleaf
-* HSQLDB
+* PostgreSQL
+* Adminer
 * nodejs 16
 * npm 8.1.2
 
