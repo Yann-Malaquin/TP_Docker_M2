@@ -57,9 +57,6 @@ Format Json :
 {"name": "Hood","surname": "Shannon","phone": "+33 (816) 462-3396","city": "Johnsonburg"}
 ```
 
-Un fichier est également fourni pour avec plusieurs personnes. <br/>
-Nom du fichier : producer.json
-
 Pour accéder à Kafka, ouvrir un terminal, saisir la commande suivante
 
 ```bash
@@ -73,6 +70,30 @@ sh-4.4$ kafka-console-producer --broker-list kafka:9092 --topic annuaire
 
 Appuyez sur entrée. <br/> 
 Rafraîchir la page web et si le modèle correspond, la personne sera ajoutée.
+
+
+Un fichier est également fourni pour avoir plusieurs personnes. <br/>
+Nom du fichier : producer.json
+
+Pour ajouter un fichier json il faut le placer dans le même dossier du Dockerfile de kafka.
+Il faut entrer la ligne de commande suivante dans le Dockerfile
+
+```
+COPY producer.json .
+```
+
+Par la suite dans un terminal il faut entrer les lignes de commandes suivantes :
+
+```bash
+docker exec -ti annuaire-kafka sh
+```
+
+```shell
+sh-4.4$ kafka-console-producer --broker-list kafka:9092 --topic annuaire < producer.json
+```
+
+Appuyez sur entrée. <br/> 
+Rafraîchir la page web et si les modèles correspondent, toutes les personnes du fichier seront ajoutées.
 
 ### URL
 
