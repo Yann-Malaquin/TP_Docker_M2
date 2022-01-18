@@ -1,5 +1,7 @@
 FROM confluentinc/cp-kafka:6.1.1
 
+COPY producer.json .
+
 ENV KAFKA_BROKER_ID=1 \
       KAFKA_ADVERTISED_HOST_NAME=kafka \
       KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 \
