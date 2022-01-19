@@ -33,7 +33,7 @@ Toutes les commandes sont réalisées sous Windows.
 
 ### Récupération du dépôt github
 ```
-git clone https://github.com/Yann-Malaquin/Annuaire.git
+git clone https://github.com/Yann-Malaquin/TP_Docker_M2.git
 ```
 
 ### Lancement du docker-compose.yml
