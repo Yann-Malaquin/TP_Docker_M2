@@ -2,9 +2,7 @@
 FROM openjdk:8-jdk-alpine as build
 
 ENV BOOTSTRAP_SERVERS_CONFIG=kakfa:9092 \
-      SPRING_DATASOURCE_URL=jdbc:postgresql://db/test \
-      SPRING_DATASOURCE_USERNAME=sa \
-      SPRING_DATASOURCE_PASSWORD=1234
+      SPRING_DATASOURCE_URL=jdbc:postgresql://db/test
 
 EXPOSE 8082 8001
 

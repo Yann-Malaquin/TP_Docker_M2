@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.9"
 
 services:
   # Service pour le frontend
@@ -9,14 +9,15 @@ services:
     ports:
       - 4200:4200
     container_name: annuaire-angular
-    networks:
-      annuaire-network:
 
   # Service pour le back
   spring:
     build:
-      context: ./annuaire
+      context: ./Annuaire
       dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     ports:
       - 8082:8082
       - 8001:8001
@@ -24,21 +25,19 @@ services:
       - db
       - kafka
     container_name: annuaire-spring
-    networks:
-      annuaire-network:
 
  # Service pour la BDD postgreSQL
   db:
-    build:
-      context: ./dockerfile/postgres
-      dockerfile: Dockerfile
+    image: postgres:9.6.24
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_DB: test
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - datadb:/var/lib/postgresql/data
     ports:
       - 5432:5432
     container_name: annuaire-postgres
-    networks:
-      annuaire-network:
 
   # Service pour adminer, permet de voir la BDD
   adminer:
@@ -47,19 +46,15 @@ services:
     ports:
       - 8080:8080
     container_name: annuaire-adminer
-    networks:
-      annuaire-network:
 
   # Service pour zookeeper, serveur apache pour kafka
   zookeeper:
-    build:
-      context: ./dockerfile/zookeeper
-      dockerfile: Dockerfile
+    image: confluentinc/cp-zookeeper:6.1.1
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
     ports:
       - 2181:2181
     container_name: annuaire-zookeeper
-    networks:
-      annuaire-network:
 
   # Service pour kafka
   kafka:
@@ -74,28 +69,24 @@ services:
     links:
       - zookeeper
     container_name: annuaire-kafka
-    networks:
-      annuaire-network:
 
   # Service pour initialiser kafka, création des topics etc
   init-kafka:
-    build:
-      context: dockerfile/init-kafka
-      dockerfile: Dockerfile
+    image: confluentinc/cp-kafka:6.1.1
+    command: "bash -c 'kafka-topics --bootstrap-server kafka:9092 --list && \
+                       kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists \
+                                    --topic annuaire --replication-factor 1 --partitions 1 && \
+                       kafka-topics --bootstrap-server kafka:9092 --list'"
     container_name: annuaire-init-kafka
-    networks:
-      annuaire-network:
+    depends_on:
+    - kafka
 
 # Volume permettant de persister la BDD, le dossier se situera dans le dossier du projet
 volumes:
   datadb:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: './data/db'
 
 # Le reseau du projet
 networks:
-  annuaire-network:
+  default:
+    name: annuaire-network
 
